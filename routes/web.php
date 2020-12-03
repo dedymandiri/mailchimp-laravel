@@ -13,10 +13,9 @@ use App\Http\Controllers\IndexController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@index')->name('index'); //halaman utama
+Route::post('/newsletter', 'IndexController@store')->name('store'); //proses proses data
 
-Route::get('/index', [IndexController::class, 'index']);
-Route::post('/index/newsletter', [IndexController::class, 'store']);
+
