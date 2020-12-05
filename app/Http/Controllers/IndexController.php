@@ -14,15 +14,19 @@ class IndexController extends Controller
 
     public function store(Request $request)
     {
-       // Newsletter::delete('SUBSCRIBER_EMAIL');
 
         if ( ! Newsletter::isSubscribed($request->user_email) ) // membuat pengguna berlangganan ke daftar MailChimp
         {
-            Newsletter::subscribePending($request->user_email); // menetapkan status pengguna yang 'tertunda' dalam daftar MailChimp untuk menunggu konfirmasi.
+            //Newsletter::subscribepending($request->user_email); //Subscribe dengan adanya konfirmasi email
 
-            return redirect('/')->with('success','Check your email for next steps!');
+            //return redirect('/')->with('success','Check your email for next steps!'); //Pesan alert
+
+            Newsletter::subscribe($request->user_email); //Subscribe tanpa konfirmasi email
+
+            return redirect('/')->with('success','Congratulations on your successful subscription!');
 
         }
         return redirect('/')->with('failed','Sorry you are already subscribed buddy!');
+
     }
 }
